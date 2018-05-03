@@ -1,6 +1,9 @@
 language: c
 sudo: required
 
+os:
+  - linux
+
 env:
   global:
     - VERSION=1.4.7

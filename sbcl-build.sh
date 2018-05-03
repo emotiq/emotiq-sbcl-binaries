@@ -39,8 +39,8 @@ case ${uname_s} in
 esac
 
 cd $workdir
-wget -O - ${bootstrap_lisp_url} | tar xvfj -
-wget -O - ${source_tar} | tar xvfj -
+wget -O - ${bootstrap_lisp_url} | tar xfj -
+wget -O - ${source_tar} | tar xfj -
 wget ${patch0_url}
 cd sbcl-${version}
 patch -p0 <${workdir}/${patch0_name}

@@ -14,7 +14,7 @@ for d in $prefix $workdir ; do
 done
 
 install_deps_linux() {
-  sudo apt-get update && apt-get install -y \
+  sudo apt-get update && sudo apt-get install -y \
     build-essential \
     ed \
     wget

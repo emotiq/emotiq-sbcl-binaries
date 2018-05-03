@@ -1,0 +1,25 @@
+os:
+  # - osx
+  - linux
+
+env:
+  global:
+    - VERSION=1.4.7
+    - PREFIX=/usr/local
+
+jobs:
+  - stage: Build
+    script: ./sbcl-build.sh
+  - stage: Test
+    script: ./sbcl-test.sh
+  - stage: Deploy
+    script:
+      - ./sbcl-build.sh
+      - ./sbcl-deploy.sh
+    deploy:
+      provider: releases
+      api_key: xxxxxx
+      file: "$(cat /tmp/artifact.txt)"
+      skip_cleanup: true
+      on:
+        tags: true

@@ -38,12 +38,14 @@ case ${uname_s} in
         ;;
 esac
 
+cp patches/patch-test-frlock.diff ${workdir}
 cd $workdir
 wget -O - ${bootstrap_lisp_url} | tar xfj -
 wget -O - ${source_tar} | tar xfj -
 wget ${patch0_url}
 cd sbcl-${version}
 patch -p0 <${workdir}/${patch0_name}
+patch -p0 <${workdir}/patch-test-frlock.diff
 
 command="${bootstrap_folder}/src/runtime/sbcl"
 core="${bootstrap_folder}/output/sbcl.core"

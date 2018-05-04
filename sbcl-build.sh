@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
-
 version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
 workdir=/tmp/sbcl/work

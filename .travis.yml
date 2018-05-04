@@ -1,6 +1,3 @@
-language: c
-sudo: required
-
 env:
   global:
     - VERSION=1.4.7

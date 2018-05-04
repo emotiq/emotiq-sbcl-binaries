@@ -1,5 +1,5 @@
-# emotiq-sbcl-binaries
-[![Build Status](https://travis-ci.org/emotiq/emotiq-sbcl-binaries.svg?branch=master)](https://travis-ci.org/emotiq/emotiq-sbcl-binaries)
+# sbcl-binaries
+[![Build Status](https://travis-ci.org/emotiq/sbcl-binaries.svg?branch=master)](https://travis-ci.org/emotiq/sbcl-binaries)
 
 Unofficial binary distributions for Steel Bank Common Lisp
 

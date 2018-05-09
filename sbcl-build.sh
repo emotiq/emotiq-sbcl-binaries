@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
-
 version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
 workdir=/tmp/sbcl/work
@@ -14,7 +12,7 @@ for d in $prefix $workdir ; do
 done
 
 install_deps_linux() {
-  sudo apt-get update && apt-get install -y \
+  sudo apt-get update && sudo apt-get install -y \
     build-essential \
     ed \
     wget
@@ -38,12 +36,14 @@ case ${uname_s} in
         ;;
 esac
 
+cp patches/patch-test-frlock.diff ${workdir}
 cd $workdir
-wget -O - ${bootstrap_lisp_url} | tar xvfj -
-wget -O - ${source_tar} | tar xvfj -
+wget -O - ${bootstrap_lisp_url} | tar xfj -
+wget -O - ${source_tar} | tar xfj -
 wget ${patch0_url}
 cd sbcl-${version}
 patch -p0 <${workdir}/${patch0_name}
+patch -p0 <${workdir}/patch-test-frlock.diff
 
 command="${bootstrap_folder}/src/runtime/sbcl"
 core="${bootstrap_folder}/output/sbcl.core"

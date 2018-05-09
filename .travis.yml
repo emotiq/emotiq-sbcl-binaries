@@ -5,19 +5,39 @@ env:
 
 jobs:
   include:
-    - os: linux
-      - stage: Build
-        script: ./sbcl-build.sh
-      - stage: Test
-        script: ./sbcl-test.sh
-      - stage: Deploy
-        script:
-          - ./sbcl-build.sh
-          - ./sbcl-deploy.sh
-        deploy:
-          provider: releases
-          api_key: xxxxxx
-          file: "$(cat /tmp/artifact.txt)"
-          skip_cleanup: true
-          on:
-            tags: true
+    - stage: Test
+      os: linux
+      script:
+        - ./sbcl-build.sh
+        - ./sbcl-test.sh
+    - stage: Deploy
+      os: linux
+      script:
+        - ./sbcl-build.sh
+        - ./sbcl-deploy.sh
+      deploy:
+        provider: releases
+        api_key:
+          secure: "jHhttmnrqRaQ/eBRoB/JMbI9ezIO2x6p9Ll4toYtQ2y350+3dE6DhltfORKzqleP/kMdFuNfrc+ktH+fRGP/pS5V3W9i/7EAvN66FChMmF9gf6fGl0+Tc7J5nN65dD8UkVx+i3oZkXMizH/VHIIHiI78xP+fgJ2sS7XHkp0slNwPqbjfREcRbQRbi7j44Wb13nkqII7EcrB+GxipKf1whdtSiNy/PMkzhUGOo+IZt+F4ZpiXLtPIXu9PD/zsLVv8aRlI+0Q2NWIXCZ8NZ1TOBqzdlRIC9GhRWhjXx5PpcRYowsh9QNHNHLhpvZmWtkhMQ2kauY9S7AJF7ANP1dEieg5JXBhH6/L0IKHgOVfz1Srj3kY7bZLqzRnTCfAcf25jrhgk7/90ld5ZAbwzsBi/HjHcw65it5o7rVpqmOjZJobkZLzMxYa7IGIkhKzGwMOZ5G4aIbyV6GIJG6ci90z7w9mdhRGErEqpLJinA/TbbQyxClqlFRzBM6/IXfmDIYzwewhzex4xLMgCcA+Sv9DwnVNoIVUJnTi8Vhus3CADR5hrnR58yxJF/INLO6cdaCpa9AHzwXNz1BtIYdfaeCS3lzFovma+12Iq9CHKlz9kpPGJNRrNP33vhyMmCA0mxuoMY+lfMsXvkA12MA+15DOECpI2ttbRV7uXCBYEwqDgwY4="
+        file: "$(cat /tmp/artifact.txt)"
+        skip_cleanup: true
+        on:
+          tags: true
+    - stage: Test
+      os: osx
+      script:
+        - ./sbcl-build.sh
+        - ./sbcl-test.sh
+    - stage: Deploy
+      os: osx
+      script:
+        - ./sbcl-build.sh
+        - ./sbcl-deploy.sh
+      deploy:
+        provider: releases
+        api_key:
+          secure: "ASqO1hpdEOzzeb9hk0abzsJIRxp7kwZ6ooBcd1N3xNGwxcl6p41rryhliir1XqH1APeiVsSbS1BBoSHlqglER+ESdkTvf2fQUmPI+bjtm1f5KRLnhO3BbS6dtq60KDmy3yms6Fu2BuuMTP4/dw0GWzbGOETGMGyJ+IAefAh2qLYa3mXnykVm2otNYRSfhVb5xgrkNCJw0lMXYnfciqnherLroYUShhrzF+KBKNgxdqHN7aRpkNWTl1PyETlvZgRjTTxD3hsATn1HhpqRrqRfj7d1t1wWyqWSrao3Jf+VHYBc/imHX2uagEILDG+5yWP+cs9SbR5jARvDrqgYY2ier8BxXWGumIj1DbNXOPB5tVMsJoV9QEpN2j+emDwYLjFic4YlgxPjgkKP8ty2o/s+/+Ppr+LittNXZWKXW3zRBfDubzJdoFjCJn5Qo6oQsQCJbbKz2CVxCE+7rn+sjag6h/qf9bPScjFtOACCQzbL1/IFOh109HO5fwaR1gX39/g5jmSP5ZV566Lvc06nhcz7dmPBtR17qQENguF8EnWutZvy7JZgHr8huOM+hm984kHVahv1o+d97AU3ZQXbBy5UliCkjCeP/aGskqVhfijZlqsc24drwHHi97o1LXSClPt6k7vnp2D44fjLQZJqItPcoF44KK1mhezym9yuUg3asOA="
+        file: "$(cat /tmp/artifact.txt)"
+        skip_cleanup: true
+        on:
+          tags: true

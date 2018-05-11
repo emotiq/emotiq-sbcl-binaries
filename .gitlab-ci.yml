@@ -1,4 +1,6 @@
 variables:
+  GITHUB_REPO_OWNER: emotiq
+  GITHUB_REPO: sbcl-binaries
   VERSION: "1.4.7"
   PREFIX: "/usr/local"
 
@@ -10,6 +12,8 @@ variables:
 stages:
   - build
   - test
+  - release
+  - deploy
 
 build:linux:
   stage: build
@@ -30,3 +34,23 @@ test:linux:
     - ${CI_PROJECT_DIR}/sbcl-test.sh
   dependencies:
     - build:linux
+
+release:
+  stage: release
+  tags:
+    - linux
+  only:
+    - tags
+  script:
+    - ci/create-release.sh
+
+deploy:linux:
+  stage: deploy
+  tags: linux
+  only:
+    - tags
+  dependencies:
+    - build:linux
+  script:
+    - ${CI_PROJECT_DIR}/sbcl-deploy.sh
+    - ci/upload-file.sh $(cat /tmp/artifact.txt)

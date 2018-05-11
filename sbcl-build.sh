@@ -6,9 +6,7 @@ source_tar=http://prdownloads.sourceforge.net/sbcl/sbcl-${version}-source.tar.bz
 patch0_name=patch-make-doc.diff
 patch0_url="https://raw.githubusercontent.com/Homebrew/formula-patches/c5ffdb11/sbcl/${patch0_name}"
 
-for d in $prefix $workdir ; do
-  mkdir -p $d
-done
+mkdir -p $prefix
 
 install_deps_linux() {
   sudo apt-get update && sudo apt-get install -y \
@@ -36,6 +34,7 @@ case $(uname -s) in
         ;;
 esac
 
+mkdir -p $workdir
 cp patches/patch-test-frlock.diff ${workdir}
 cd $workdir
 wget -O - ${bootstrap_lisp_url} | tar xfj -

@@ -46,7 +46,8 @@ release:
 
 deploy:linux:
   stage: deploy
-  tags: linux
+  tags:
+    - linux
   only:
     - tags
   dependencies:

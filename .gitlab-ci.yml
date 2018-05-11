@@ -28,6 +28,8 @@ build:linux:
 
 test:linux:
   stage: test
+  except:
+    - tags
   tags:
     - linux
   script:

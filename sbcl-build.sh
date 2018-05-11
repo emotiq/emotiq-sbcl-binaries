@@ -17,16 +17,16 @@ install_deps_linux() {
 
 case $(uname -s) in
     Darwin*)
+        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/osx
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.11-x86-64-darwin-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.2.11-x86-64-darwin
-        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/osx
 
         ;;
     Linux*)
+        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/linux
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.4.7-x86-64-linux-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.4.7-x86-64-linux
         install_deps_linux
-        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/linux
         ;;
     *)
         echo 'Only macOS and Linux are supported!'

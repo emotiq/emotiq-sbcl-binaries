@@ -14,4 +14,4 @@ stages:
 build_sbcl:
   stage: build
   script:
-    - sbcl-build.sh
+    - ${CI_PROJECT_DIR}/sbcl-build.sh

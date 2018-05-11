@@ -2,7 +2,6 @@
 
 version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
-workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work
 source_tar=http://prdownloads.sourceforge.net/sbcl/sbcl-${version}-source.tar.bz2
 patch0_name=patch-make-doc.diff
 patch0_url="https://raw.githubusercontent.com/Homebrew/formula-patches/c5ffdb11/sbcl/${patch0_name}"
@@ -18,17 +17,18 @@ install_deps_linux() {
     wget
 }
 
-uname_s=$(uname -s)
-
-case ${uname_s} in
+case $(uname -s) in
     Darwin*)
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.11-x86-64-darwin-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.2.11-x86-64-darwin
+        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/osx
+
         ;;
     Linux*)
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.4.7-x86-64-linux-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.4.7-x86-64-linux
         install_deps_linux
+        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/linux
         ;;
     *)
         echo 'Only macOS and Linux are supported!'

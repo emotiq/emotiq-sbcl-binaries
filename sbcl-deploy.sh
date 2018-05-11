@@ -2,18 +2,17 @@
 
 version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
-workdir=/tmp/sbcl/work
 
-uname_s=$(uname -s)
-
-case ${uname_s} in
+case $(uname -s) in
     Darwin*)
         arch=x86-64-darwin
         md5=md5
+        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/osx
         ;;
     Linux*)
         arch=x86-64-linux
         md5=md5sum
+        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/linux
         ;;
     *)
         echo 'Only macOS and Linux are supported!'

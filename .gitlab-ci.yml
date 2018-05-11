@@ -1,0 +1,17 @@
+variables:
+  VERSION: "1.4.7"
+  PREFIX: "/usr/local"
+
+cache:
+  key: "${CI_PIPELINE_ID}"
+  paths:
+    - work/
+
+stages:
+  - build
+  - test
+
+build_sbcl:
+  stage: build
+  script:
+    - sbcl-build.sh

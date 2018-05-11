@@ -2,7 +2,7 @@
 
 version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
-workdir=/tmp/sbcl/work
+workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work
 source_tar=http://prdownloads.sourceforge.net/sbcl/sbcl-${version}-source.tar.bz2
 patch0_name=patch-make-doc.diff
 patch0_url="https://raw.githubusercontent.com/Homebrew/formula-patches/c5ffdb11/sbcl/${patch0_name}"

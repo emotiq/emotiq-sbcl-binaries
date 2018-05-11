@@ -26,17 +26,17 @@ build:linux:
     paths:
       - work/
 
-test:linux:
-  stage: test
-  except:
-    - tags
-  tags:
-    - linux
-  script:
-    - ${CI_PROJECT_DIR}/sbcl-test.sh
-  dependencies:
-    - build:linux
-
+# test:linux:
+#   stage: test
+#   except:
+#     - tags
+#   tags:
+#     - linux
+#   script:
+#     - ${CI_PROJECT_DIR}/sbcl-test.sh
+#   dependencies:
+#     - build:linux
+#
 release:
   stage: release
   tags:

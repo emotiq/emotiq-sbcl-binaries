@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 version=${VERSION:-1.4.7}
+project_dir="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 case $(uname -s) in
     Darwin*)
-        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/osx
+        workdir=${project_dir}/work/osx
         ;;
     Linux*)
-        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/linux
+        workdir=${project_dir}/work/linux
         ;;
     *)
         echo 'Only macOS and Linux are supported!'

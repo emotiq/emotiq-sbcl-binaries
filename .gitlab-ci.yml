@@ -26,6 +26,16 @@ build:macos:
     paths:
       - work/
 
+test:macos:
+  stage: test
+  except:
+    - tags
+  tags:
+    - macos
+  script:
+    - ./sbcl-test.sh
+  dependencies:
+    - build:macos
 
 # build:linux:
 #   stage: build

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x
+project_dir="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
@@ -19,13 +19,13 @@ install_deps_linux() {
 
 case $(uname -s) in
     Darwin*)
-        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/osx
+        workdir=${project_dir}/work/osx
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.11-x86-64-darwin-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.2.11-x86-64-darwin
 
         ;;
     Linux*)
-        workdir=${CI_PROJECT_DIR:-/tmp/sbcl}/work/linux
+        workdir=${project_dir}/work/linux
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.4.7-x86-64-linux-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.4.7-x86-64-linux
         install_deps_linux

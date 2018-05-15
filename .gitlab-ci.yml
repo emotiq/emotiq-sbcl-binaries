@@ -20,7 +20,7 @@ build:macos:
   tags:
     - macos
   script:
-    - ${CI_PROJECT_DIR}/sbcl-build.sh
+    - ./sbcl-build.sh
   artifacts:
     expire_in: 1 week
     paths:

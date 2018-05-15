@@ -17,6 +17,10 @@ install_deps_linux() {
     wget
 }
 
+install_deps_macos() {
+  brew install wget
+}
+
 case $(uname -s) in
     Darwin*)
         workdir=${project_dir}/work/osx

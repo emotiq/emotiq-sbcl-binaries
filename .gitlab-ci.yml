@@ -15,10 +15,10 @@ stages:
   - release
   - deploy
 
-build:linux:
+build:macos:
   stage: build
   tags:
-    - linux
+    - macos
   script:
     - ${CI_PROJECT_DIR}/sbcl-build.sh
   artifacts:
@@ -26,6 +26,18 @@ build:linux:
     paths:
       - work/
 
+
+# build:linux:
+#   stage: build
+#   tags:
+#     - linux
+#   script:
+#     - ${CI_PROJECT_DIR}/sbcl-build.sh
+#   artifacts:
+#     expire_in: 1 week
+#     paths:
+#       - work/
+#
 # test:linux:
 #   stage: test
 #   except:
@@ -37,23 +49,23 @@ build:linux:
 #   dependencies:
 #     - build:linux
 #
-release:
-  stage: release
-  tags:
-    - linux
-  only:
-    - tags
-  script:
-    - ci/create-release.sh
-
-deploy:linux:
-  stage: deploy
-  tags:
-    - linux
-  only:
-    - tags
-  dependencies:
-    - build:linux
-  script:
-    - ${CI_PROJECT_DIR}/sbcl-deploy.sh
-    - ci/upload-file.sh $(cat /tmp/artifact.txt)
+# release:
+#   stage: release
+#   tags:
+#     - linux
+#   only:
+#     - tags
+#   script:
+#     - ci/create-release.sh
+#
+# deploy:linux:
+#   stage: deploy
+#   tags:
+#     - linux
+#   only:
+#     - tags
+#   dependencies:
+#     - build:linux
+#   script:
+#     - ${CI_PROJECT_DIR}/sbcl-deploy.sh
+#     - ci/upload-file.sh $(cat /tmp/artifact.txt)

@@ -80,7 +80,7 @@ release:
 #     - ${CI_PROJECT_DIR}/sbcl-deploy.sh
 #     - ci/upload-file.sh $(cat /tmp/artifact.txt)
 
-deploy:linux:
+deploy:macos:
   stage: deploy
   tags:
     - macos
@@ -89,5 +89,5 @@ deploy:linux:
   dependencies:
     - build:macos
   script:
-    - ${CI_PROJECT_DIR}/sbcl-deploy.sh
+    - ./sbcl-deploy.sh
     - ci/upload-file.sh $(cat /tmp/artifact.txt)

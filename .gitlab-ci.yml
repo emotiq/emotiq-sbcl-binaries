@@ -59,15 +59,15 @@ test:macos:
 #   dependencies:
 #     - build:linux
 #
-# release:
-#   stage: release
-#   tags:
-#     - linux
-#   only:
-#     - tags
-#   script:
-#     - ci/create-release.sh
-#
+release:
+  stage: release
+  tags:
+    - linux
+  only:
+    - tags
+  script:
+    - ci/create-release.sh
+
 # deploy:linux:
 #   stage: deploy
 #   tags:
@@ -79,3 +79,15 @@ test:macos:
 #   script:
 #     - ${CI_PROJECT_DIR}/sbcl-deploy.sh
 #     - ci/upload-file.sh $(cat /tmp/artifact.txt)
+
+deploy:linux:
+  stage: deploy
+  tags:
+    - macos
+  only:
+    - tags
+  dependencies:
+    - build:macos
+  script:
+    - ${CI_PROJECT_DIR}/sbcl-deploy.sh
+    - ci/upload-file.sh $(cat /tmp/artifact.txt)

@@ -59,7 +59,7 @@ test:macos:
     - build:macos
 
 test:linux:
-  <<: *build_definition
+  <<: *test_definition
   except:
     - tags
   tags:

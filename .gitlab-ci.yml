@@ -1,5 +1,5 @@
 variables:
-  GITHUB_REPO_OWNER: emotiq
+  GITHUB_USER: emotiq
   GITHUB_REPO: sbcl-binaries
   VERSION: "1.4.7"
   PREFIX: "/usr/local"
@@ -15,47 +15,55 @@ stages:
   - release
   - deploy
 
-build:macos:
+.build: &build_definition
   stage: build
-  tags:
-    - macos
   script:
     - ./sbcl-build.sh
+
+.test: &test_definition
+  stage: test
+  script:
+    - ./sbcl-test.sh
+
+.deploy: &deploy_definition
+  stage: deploy
+  script:
+    - ./sbcl-deploy.sh
+    - ci/upload-file.sh $(cat /tmp/artifact.txt)
+
+build:macos:
+  <<: *build_definition
+  tags:
+    - macos
   artifacts:
     expire_in: 1 week
     paths:
       - work/
 
 build:linux:
-  stage: build
+  <<: *build_definition
   tags:
     - linux
-  script:
-    - ${CI_PROJECT_DIR}/sbcl-build.sh
   artifacts:
     expire_in: 1 week
     paths:
       - work/
 
 test:macos:
-  stage: test
+  <<: *test_definition
   except:
     - tags
   tags:
     - macos
-  script:
-    - ./sbcl-test.sh
   dependencies:
     - build:macos
 
 test:linux:
-  stage: test
+  <<: *build_definition
   except:
     - tags
   tags:
     - linux
-  script:
-    - ${CI_PROJECT_DIR}/sbcl-test.sh
   dependencies:
     - build:linux
 
@@ -67,12 +75,6 @@ release:
     - tags
   script:
     - ci/create-release.sh
-
-.deploy: &deploy_definition
-  stage: deploy
-  script:
-    - ./sbcl-deploy.sh
-    - ci/upload-file.sh $(cat /tmp/artifact.txt)
 
 deploy:linux:
   <<: *deploy_definition

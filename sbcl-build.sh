@@ -23,7 +23,7 @@ install_deps_macos() {
 
 case $(uname -s) in
     Darwin*)
-        workdir=${project_dir}/work/osx
+        workdir=${project_dir}/work/darwin
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.11-x86-64-darwin-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.2.11-x86-64-darwin
         install_deps_macos

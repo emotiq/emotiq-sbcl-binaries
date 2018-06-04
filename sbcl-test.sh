@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-version=${VERSION:-1.4.7}
+version=${VERSION:-1.4.8}
 project_dir="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 case $(uname -s) in
     Darwin*)
-        workdir=${project_dir}/work/osx
+        workdir=${project_dir}/work/darwin
         ;;
     Linux*)
         workdir=${project_dir}/work/linux

@@ -2,7 +2,7 @@
 
 project_dir="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-version=${VERSION:-1.4.7}
+version=${VERSION:-1.4.8}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
 source_tar=http://prdownloads.sourceforge.net/sbcl/sbcl-${version}-source.tar.bz2
 patch0_name=patch-make-doc.diff

@@ -77,11 +77,11 @@ deploy:linux:
   dependencies:
     - build:linux
   variables:
-    arch: x86-64-linux
+    platform: linux
 
 deploy:macos:
   <<: *deploy_definition
   dependencies:
     - build:macos
   variables:
-    arch: x86-64-darwin
+    platform: darwin

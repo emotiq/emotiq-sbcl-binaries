@@ -31,6 +31,10 @@ stages:
 
 .deploy: &deploy_definition
   stage: deploy
+  tags:
+    - linux
+  only:
+    - tags
   script:
     - ./sbcl-deploy.sh
     - ci/upload-file.sh $(cat /tmp/artifact.txt)
@@ -70,18 +74,14 @@ release:
 
 deploy:linux:
   <<: *deploy_definition
-  tags:
-    - linux
-  only:
-    - tags
   dependencies:
     - build:linux
+  variables:
+    arch: x86-64-linux
 
 deploy:macos:
   <<: *deploy_definition
-  tags:
-    - macos
-  only:
-    - tags
   dependencies:
     - build:macos
+  variables:
+    arch: x86-64-darwin

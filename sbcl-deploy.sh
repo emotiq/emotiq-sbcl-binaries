@@ -4,22 +4,11 @@ version=${VERSION:-1.4.7}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
 project_dir="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-case $(uname -s) in
-    Darwin*)
-        arch=x86-64-darwin
-        md5=md5
-        workdir=${project_dir}/work/osx
-        ;;
-    Linux*)
-        arch=x86-64-linux
-        md5=md5sum
-        workdir=${project_dir}/work/linux
-        ;;
-    *)
-        echo 'Only macOS and Linux are supported!'
-        exit 1
-        ;;
-esac
+if [ -z ${arch+x} ]; then
+  echo "\$arch is unset."
+  echo "Expected architecture (e.g. x86-64-linux)"
+  exit 1
+fi
 
 cd $workdir
 rm -rf sbcl-${version}-${arch}

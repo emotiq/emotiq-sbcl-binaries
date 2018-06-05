@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-version=${VERSION:-1.4.7}
+project_dir="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+version=${VERSION:-1.4.8}
 prefix=${PREFIX:-/tmp/sbcl/sbcl-bin}
-workdir=/tmp/sbcl/work
 source_tar=http://prdownloads.sourceforge.net/sbcl/sbcl-${version}-source.tar.bz2
 patch0_name=patch-make-doc.diff
 patch0_url="https://raw.githubusercontent.com/Homebrew/formula-patches/c5ffdb11/sbcl/${patch0_name}"
 
-for d in $prefix $workdir ; do
-  mkdir -p $d
-done
+mkdir -p $prefix
 
 install_deps_linux() {
   sudo apt-get update && sudo apt-get install -y \
@@ -18,14 +17,19 @@ install_deps_linux() {
     wget
 }
 
-uname_s=$(uname -s)
+install_deps_macos() {
+  brew install wget
+}
 
-case ${uname_s} in
+case $(uname -s) in
     Darwin*)
+        workdir=${project_dir}/work/darwin
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.2.11-x86-64-darwin-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.2.11-x86-64-darwin
+        install_deps_macos
         ;;
     Linux*)
+        workdir=${project_dir}/work/linux
         bootstrap_lisp_url='http://prdownloads.sourceforge.net/sbcl/sbcl-1.4.7-x86-64-linux-binary.tar.bz2'
         bootstrap_folder=${workdir}/sbcl-1.4.7-x86-64-linux
         install_deps_linux
@@ -36,7 +40,9 @@ case ${uname_s} in
         ;;
 esac
 
+mkdir -p $workdir
 cp patches/patch-test-frlock.diff ${workdir}
+cp patches/patch-generate-version.diff ${workdir}
 cd $workdir
 wget -O - ${bootstrap_lisp_url} | tar xfj -
 wget -O - ${source_tar} | tar xfj -
@@ -44,6 +50,7 @@ wget ${patch0_url}
 cd sbcl-${version}
 patch -p0 <${workdir}/${patch0_name}
 patch -p0 <${workdir}/patch-test-frlock.diff
+patch -p0 <${workdir}/patch-generate-version.diff
 
 command="${bootstrap_folder}/src/runtime/sbcl"
 core="${bootstrap_folder}/output/sbcl.core"
